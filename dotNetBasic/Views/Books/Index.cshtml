@@ -1,0 +1,39 @@
+@using dotNetBasic.Models
+@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h2 class="mb-4">📚 Book Library</h2>
+
+
+@await Html.PartialAsync("_HighlightedBooks", ViewBag.HighlightedBooks, ViewData)
+
+<hr />
+
+
+<form method="get" asp-action="Index" class="row mb-3 align-items-center">
+    <div class="col-md-4">
+        <select name="genre" class="form-select">
+            <option value="">All Genres</option>
+            @foreach (var genre in Model.Select(b => b.Genre).Distinct())
+            {
+                <option value="@genre" selected="@(ViewBag.SelectedGenre == genre ? "selected" : null)">
+                    @genre
+                </option>
+            }
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+    <div class="col-md-6 text-end">
+        <h6>Total Books: <span>@ViewBag.TotalCount</span></h6>
+    </div>
+</form>
+
+
+<div id="booksContainer">
+    @await Html.PartialAsync("_BooksList", Model, ViewData)
+</div>
