@@ -1,11 +1,8 @@
 @using dotNetBasic.Models
 @model IEnumerable<Book>
 
-@{
-    ViewData["Title"] = "Books";
-}
 
-<h2 class="mb-4">📚 Book Library</h2>
+<h2 class="mb-4"> Book Library</h2>
 
 
 @await Html.PartialAsync("_HighlightedBooks", ViewBag.HighlightedBooks, ViewData)
